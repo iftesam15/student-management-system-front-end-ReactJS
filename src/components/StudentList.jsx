@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { fetchStudents, deleteStudent } from "/service/studentService"
+import { fetchStudents, deleteStudent } from "../service/studentService"
 
 const StudentList = () => {
   const [students, setStudents] = useState([]);
-
+  // const apiUrl = process.env.B
   useEffect(() => {
     const getStudents = async () => {
       try {
@@ -33,6 +33,7 @@ const StudentList = () => {
   return (
     <div>
       <h1>Students</h1>
+   
       <Link to="/students/new">Add Student</Link>
       <ul>
         {students.map((student) => (

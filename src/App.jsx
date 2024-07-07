@@ -5,6 +5,7 @@ import Students from "./pages/Students";
 import EditStudent from "./pages/EditStudent";
 import Header from "./components/Header";
 import "./index.css";
+import Enrollment from "./pages/Enrollment";
 const App = () => (
   <div className="app-container">
     <Header />
@@ -15,6 +16,7 @@ const App = () => (
           <Route path="/students" element={<Students />} />
           <Route path="/students/new" element={<EditStudent />} />
           <Route path="/students/edit/:id" element={<EditStudent />} />
+          <Route path="/enrollments" element={<Enrollment />} />
         </Routes>
       </div>
     </div>
