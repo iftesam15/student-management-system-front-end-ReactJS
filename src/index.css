@@ -1,0 +1,16 @@
+/* Styles.css */
+
+.app-container {
+  width: 100%;
+  min-height: 100vh; /* Full viewport height */
+}
+
+.container {
+  width: 80%; /* Adjust as needed */
+  padding: 20px;
+  background-color: #f9f9f9; /* Optional: background color for visibility */
+  border: 1px solid #ddd; /* Optional: border for visibility */
+  border-radius: 8px; /* Optional: rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow */
+  margin: 0 auto; /* Center horizontally */
+}
