@@ -38,7 +38,7 @@ const EnrollmentList = () => {
         </thead>
         <tbody>
           {enrollments.map((enrollment) => (
-            <tr key={enrollment.id}>
+            <tr key={enrollment.enrollment_id}>
               <td>{enrollment.course_name}</td>
               <td>{enrollment.student_full_name}</td>
               <td>{formatDate(enrollment.enrollment_date)}</td>
