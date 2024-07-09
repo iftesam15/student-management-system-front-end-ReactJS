@@ -8,7 +8,10 @@ export const fetchStudents = async () => {
 };
 
 export const deleteStudent = async (id) => {
-  await fetch(`${BASE_URL}/${id}`, {
+  const response = await fetch(`${BASE_URL}/${id}`, {
     method: "DELETE",
   });
+  return response;
+  
+  
 };
