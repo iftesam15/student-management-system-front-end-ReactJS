@@ -6,6 +6,9 @@ import EditStudent from "./pages/EditStudent";
 import Header from "./components/Header";
 import "./index.css";
 import Enrollment from "./pages/Enrollment";
+import Instructors from "./pages/Instructors";
+import "react-bootstrap";
+import InstructorForm from "./components/InstructorForm";
 const App = () => (
   <div className="app-container">
     <Header />
@@ -17,6 +20,9 @@ const App = () => (
           <Route path="/students/new" element={<EditStudent />} />
           <Route path="/students/edit/:id" element={<EditStudent />} />
           <Route path="/enrollments" element={<Enrollment />} />
+          <Route path="/instructors" element={<Instructors />} />
+          <Route path="/instructors/new" element={<InstructorForm />} />
+          <Route path="/instructors/edit/:id" element={<InstructorForm />} />
         </Routes>
       </div>
     </div>

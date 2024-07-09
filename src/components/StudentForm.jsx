@@ -17,6 +17,7 @@ const StudentForm = () => {
         .then((response) => response.json())
         .then((data) => setStudent(data.data))
         .catch((error) => console.error("Error:", error));
+        console.log(student);
     }
   }, [id]);
 
