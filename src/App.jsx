@@ -26,7 +26,7 @@ const App = () => (
           <Route path="/instructors" element={<Instructors />} />
           <Route path="/instructors/new" element={<InstructorForm />} />
           <Route path="/instructors/edit/:id" element={<InstructorForm />} />
-          <Route path="/about" element={<About/>}>
+          <Route path="/about" element={<About />}>
             <Route index element={<Navigate to="help" replace />} />
             <Route path="help" element={<Help />} />
             <Route path="contact" element={<Contact />} />

@@ -4,7 +4,9 @@ const BASE_URL = environment.BASE_URL;
 
 export const fetchInstructors = async () => {
   const response = await fetch(`${BASE_URL}instructors`);
+  console.log(response);
   const data = await response.json();
+  console.log("🚀 ~ fetchInstructors ~ data:", data)
   return data;
 };
 
