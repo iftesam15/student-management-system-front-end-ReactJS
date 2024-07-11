@@ -1,23 +1,29 @@
 import React, { useEffect, useState } from "react";
 import { fetchEnrollments } from "../service/enrollmentService";
-
+import DynamicTable from "./DynamicTable/DynamicTable";
+import { format } from "date-fns";
 const EnrollmentList = () => {
   const [enrollments, setEnrollments] = useState([]);
- 
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    const day = date.getDate().toString().padStart(2, '0');
-    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Months are 0-indexed
-    const year = date.getFullYear();
-    return `${day}/${month}/${year}`;
-  };
+  const columns = [
+    { header: "Course Name", accessor: "course_name" },
+    { header: "Student Name", accessor: "student_full_name" },
+    { header: "Enrollment Date", accessor: "enrollment_date" },
+  ];
+
   useEffect(() => {
     const getEnrollments = async () => {
       try {
         const res = await fetchEnrollments();
-        console.log("🚀 ~ getEnrollments ~ res:", res)
-        
-        setEnrollments(res.data);
+
+        const formattedData = res.data.map((enrollment) => ({
+          ...enrollment,
+          enrollment_date: format(
+            new Date(enrollment.enrollment_date),
+            "MM/dd/yyyy"
+          ),
+        }));
+
+        setEnrollments(formattedData);
       } catch (error) {
         console.error("Error:", error);
       }
@@ -28,7 +34,7 @@ const EnrollmentList = () => {
   return (
     <div>
       <h1>Enrollments</h1>
-      <table className="table-container">
+      {/* <table className="table-container">
         <thead>
           <tr>
             <th>Course Name</th>
@@ -45,7 +51,8 @@ const EnrollmentList = () => {
             </tr>
           ))}
         </tbody>
-      </table>
+      </table> */}
+      <DynamicTable columns={columns} data={enrollments} />
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Home from "./pages/Home";
 import Students from "./pages/Students";
 import EditStudent from "./pages/EditStudent";
@@ -9,6 +9,9 @@ import Enrollment from "./pages/Enrollment";
 import Instructors from "./pages/Instructors";
 import "react-bootstrap";
 import InstructorForm from "./components/InstructorForm";
+import About from "./components/About";
+import Help from "./components/Help";
+import Contact from "./components/Contact";
 const App = () => (
   <div className="app-container">
     <Header />
@@ -23,6 +26,11 @@ const App = () => (
           <Route path="/instructors" element={<Instructors />} />
           <Route path="/instructors/new" element={<InstructorForm />} />
           <Route path="/instructors/edit/:id" element={<InstructorForm />} />
+          <Route path="/about" element={<About/>}>
+            <Route index element={<Navigate to="help" replace />} />
+            <Route path="help" element={<Help />} />
+            <Route path="contact" element={<Contact />} />
+          </Route>
         </Routes>
       </div>
     </div>
