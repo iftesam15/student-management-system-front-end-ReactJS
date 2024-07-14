@@ -44,13 +44,15 @@ import Login from "./components/Login/Login";
 import Dashboard from "./components/Dashboard"; // Optional, replace with your protected route component
 import Layout from "./components/Layout";
 import StudentList from "./components/StudentList";
+import Logout from "./pages/Logout";
+
 const App = () => {
   return (
     <Routes>
-      <Route path="/" element={<Login />} />
-      <Route path="/home" element={<Layout />}>
-        <Route path="students" element={<StudentList />} />
-      </Route>
+      <Route path="/login" element={<Login />} />
+      <Route path="/" element={<Dashboard />} />
+      <Route path="/students" element={<StudentList />} />
+      <Route path="/logout" element={<Logout/>} />
     </Routes>
   );
 };

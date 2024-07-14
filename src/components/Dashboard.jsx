@@ -1,16 +1,16 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom'; // Redirect if not authenticated
+import Header from './Header';
+import { useAuth } from '../store/auth';
 
 const Dashboard = () => {
-  const token = localStorage.getItem('token'); // Check for token in localStorage
-
-  if (!token) {
-    return <Navigate to="/" replace />; // Redirect to login if not authenticated
-  }
-
+  const { user } = useAuth();
+  console.log(user);
   return (
     <div>
+      <Header />
       <h1>Welcome to the Dashboard</h1>
+      <p>Email: {user.email}</p>
       {/* Display protected content here */}
     </div>
   );
