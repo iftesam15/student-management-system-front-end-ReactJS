@@ -49,10 +49,10 @@ import Logout from "./pages/Logout";
 const App = () => {
   return (
     <Routes>
-      <Route path="/login" element={<Login />} />
       <Route path="/" element={<Dashboard />} />
+      <Route path="/login" element={<Login />} />
       <Route path="/students" element={<StudentList />} />
-      <Route path="/logout" element={<Logout/>} />
+      <Route path="/logout" element={<Logout />} />
     </Routes>
   );
 };
