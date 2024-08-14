@@ -7,8 +7,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { AuthProvider } from "./store/auth";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <AuthProvider>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    
+     <App />
+    
+     
+    
   </AuthProvider>
 );

@@ -8,7 +8,7 @@ const Dashboard = () => {
   console.log(user);
   return (
     <div>
-      <Header />
+     
       <h1>Welcome to the Dashboard</h1>
       <p>Name: {user.username}</p>
       <p>Email: {user.email}</p>

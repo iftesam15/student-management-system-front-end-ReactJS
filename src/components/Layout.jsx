@@ -1,15 +1,17 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 import Header from "./Header";
-import { Navigate, Outlet } from "react-router-dom";
-export default function Layout() {
-  const token = localStorage.getItem("token");
-  if (!token) {
-    return <Navigate to="/" replace />; // Redirect to login if not authenticated
-  }
+
+const Layout = ({ children }) => {
+  const location = useLocation();
+  const isLogin = location.pathname === "/login";
+
   return (
     <div>
-      <Header></Header>
-      <Outlet></Outlet>
+      {isLogin ? null : <Header />} {/* Conditionally render Navbar */}
+      <main>{children}</main>
     </div>
   );
-}
+};
+
+export default Layout;

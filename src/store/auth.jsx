@@ -1,5 +1,4 @@
 import {
-  Children,
   createContext,
   useContext,
   useEffect,
@@ -10,47 +9,46 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token"));
-  const [user, setUser] = useState({
+  const [user, setUser] = useState({});
 
-  });
   const storeTokenInLS = (serverToken) => {
-    return localStorage.setItem("token", serverToken);
+    localStorage.setItem("token", serverToken);
+    setToken(serverToken); // Update token state immediately after saving
   };
+
   const LogoutUser = () => {
     setToken("");
-    return localStorage.removeItem("token");
+    localStorage.removeItem("token");
   };
-  //JWT authetication - to get the currently logged in user
 
   const userAuthentication = async () => {
+    if (!token) return; // Exit if there's no token
+
     try {
       const response = await fetch("http://localhost:3000/users/me", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
+
       if (response.ok) {
         const data = await response.json();
         setUser(data.user);
-      
-      }
-      if (!response.ok) {
+      } else {
         throw new Error("Authentication failed");
       }
     } catch (error) {
       console.error("Error:", error);
     }
   };
+
   useEffect(() => {
-    // if token is present in local storage, user is logged in
-
-    console.log("Token found:", token);
-   
     userAuthentication();
-  
-  }, [token]);
+  }, [token]); // Re-run userAuthentication whenever token changes
 
-  let isLoggedIn = !!token;
+  const isLoggedIn = !!token;
+  console.log("in auth", isLoggedIn);
+
   return (
     <AuthContext.Provider
       value={{ isLoggedIn, storeTokenInLS, LogoutUser, user }}

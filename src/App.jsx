@@ -43,18 +43,25 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./components/Login/Login";
 import Dashboard from "./components/Dashboard"; // Optional, replace with your protected route component
 import Layout from "./components/Layout";
+import PrivateRoute from "./utils/PrivateRoute";
 import StudentList from "./components/StudentList";
-import Logout from "./pages/Logout";
-
 const App = () => {
   return (
-    <Routes>
-      <Route path="/" element={<Dashboard />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/students" element={<StudentList />} />
-      <Route path="/logout" element={<Logout />} />
-    </Routes>
+    <div>
+      <Router>
+        <Layout>
+          <Routes>
+            <Route element={<PrivateRoute />}>
+              <Route path="/" element={<Dashboard />} />
+              <Route path="/students" element= { <StudentList></StudentList> } />
+            </Route>
+            <Route path="/login" element={<Login />} />
+          </Routes>
+        </Layout>
+      </Router>
+    </div>
   );
 };
 
 export default App;
+
