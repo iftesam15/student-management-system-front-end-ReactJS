@@ -1,0 +1,86 @@
+.banner {
+  background-color: #f7e9da;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  width: 800px;
+  max-width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.text-content {
+  max-width: 50%;
+}
+
+h1 {
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+h1 span {
+  color: #e77e5c;
+}
+
+button {
+  background-color: #2d7068;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button:hover {
+  background-color: #24574e;
+}
+
+.student-image {
+  max-width: 150px;
+  border-radius: 5px;
+}
+
+.shapes {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+.shape {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+}
+
+.shape1 {
+  background-color: #2d7068;
+  border-radius: 50%;
+  top: 20px;
+  left: 20px;
+}
+
+.shape2 {
+  background-color: #344a3e;
+  top: 50px;
+  right: 50px;
+}
+
+.shape3 {
+  background-color: #e77e5c;
+  bottom: 30px;
+  left: 40px;
+}
+
+.shape4 {
+  background-color: #344a3e;
+  bottom: 20px;
+  right: 20px;
+  transform: rotate(45deg);
+}
