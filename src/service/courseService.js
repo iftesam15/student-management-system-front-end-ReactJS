@@ -7,3 +7,8 @@ export const fetchCourses = async () => {
     const data = await response.json();
     return data;
 }
+export const fetchCourseNames = async () => {
+    const response = await fetch(`${BASE_URL}courses/names`);
+    const data = await response.json();
+    return data;
+}

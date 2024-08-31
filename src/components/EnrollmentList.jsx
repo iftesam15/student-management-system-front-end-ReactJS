@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { fetchEnrollments } from "../service/enrollmentService";
 import DynamicTable from "./DynamicTable/DynamicTable";
 import { format } from "date-fns";
+import { Link } from "react-router-dom";
 const EnrollmentList = () => {
   const [enrollments, setEnrollments] = useState([]);
   const columns = [
@@ -52,6 +53,7 @@ const EnrollmentList = () => {
           ))}
         </tbody>
       </table> */}
+      <Link to="/enrollments/new">New Enrollment</Link>
       <DynamicTable columns={columns} data={enrollments} />
     </div>
   );

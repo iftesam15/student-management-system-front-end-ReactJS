@@ -52,6 +52,7 @@ import Enrollment from "./pages/Enrollment";
 import Instuctors from "./pages/Instructors";
 import Courses from "./pages/Courses";
 import Logout from "./pages/Logout";
+import NewEnrollment from "./components/NewEnrollment";
 const App = () => {
   return (
     <div>
@@ -70,6 +71,10 @@ const App = () => {
                 element={<StudentForm></StudentForm>}
               />
               <Route path="/enrollments" element={<Enrollment></Enrollment>} />
+              <Route
+                path="/enrollments/new"
+                element={<NewEnrollment></NewEnrollment>}
+              />
               <Route path="/instructors" element={<Instuctors></Instuctors>} />
 
               <Route path="/about" element={<About></About>} />
