@@ -8,12 +8,12 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const {storeTokenInLS} = useAuth();
+  const { storeTokenInLS } = useAuth();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     try {
-     
       const response = await axios.post("http://localhost:3000/users/login", {
         email,
         password,
@@ -26,34 +26,39 @@ const Login = () => {
         navigate("/"); // Redirect to protected route
       }
     } catch (error) {
-       console.log(error);
+      console.log(error);
     }
   };
 
   return (
-    <div>
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="email">Email:</label>
-        <input
-          type="email"
-          id="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <label htmlFor="password">Password:</label>
-        <input
-          type="password"
-          id="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <button type="submit">Login</button>
-      </form>
-      {error && <p className="error">{error}</p>}
-    </div>
+    <>
+      <h1 className="mb-4 text-center">Express js demo app</h1>
+      <div className="login-container">
+        <div>
+          <h2>Login</h2>
+          <form className="student-form" onSubmit={handleSubmit}>
+            <label htmlFor="email">Email:</label>
+            <input
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+            <label htmlFor="password">Password:</label>
+            <input
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            <button type="submit">Login</button>
+          </form>
+          {error && <p className="error">{error}</p>}
+        </div>
+      </div>
+    </>
   );
 };
 

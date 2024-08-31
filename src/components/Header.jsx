@@ -7,6 +7,7 @@ const Header = () => (
       <ul
         style={{
           display: "flex",
+          flexWrap: "wrap",
           listStyle: "none",
           gap: 20 + "px",
           justifyContent: "start",

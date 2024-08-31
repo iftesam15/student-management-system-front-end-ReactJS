@@ -1,0 +1,46 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.login-container h2 {
+  text-align: center;
+}
+.container {
+  height: 100vh;
+}
+
+.student-form {
+  min-width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.student-form label {
+  margin-bottom: 5px;
+}
+
+.student-form input {
+  padding: 8px;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.student-form button {
+  padding: 10px;
+  font-size: 16px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.student-form button:hover {
+  background-color: #45a049;
+}
+
+.error {
+  color: red;
+  margin-top: 10px;
+}

@@ -7,7 +7,7 @@ const Layout = ({ children }) => {
   const isLogin = location.pathname === "/login";
 
   return (
-    <div>
+    <div className="container">
       {isLogin ? null : <Header />} {/* Conditionally render Navbar */}
       <main>{children}</main>
     </div>
