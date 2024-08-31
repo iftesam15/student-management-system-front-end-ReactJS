@@ -2,17 +2,17 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const Header = () => (
-  <header >
+  <header>
     <nav>
-      <ul style= {
-    {
-      display: "flex",
-      listStyle:"none",
-      gap: 20 + "px",
-      justifyContent: "start",
-      padding: 10 + "px",
-    }
-  }>
+      <ul
+        style={{
+          display: "flex",
+          listStyle: "none",
+          gap: 20 + "px",
+          justifyContent: "start",
+          padding: 10 + "px",
+        }}
+      >
         <li>
           <Link to="/">Home</Link>
         </li>
@@ -24,6 +24,9 @@ const Header = () => (
         </li>
         <li>
           <Link to="/instructors">Instructors</Link>
+        </li>
+        <li>
+          <Link to="/courses">Courses</Link>
         </li>
         <li>
           <Link to="/about">About</Link>

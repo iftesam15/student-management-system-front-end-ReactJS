@@ -41,8 +41,8 @@ const StudentList = () => {
   const handleDelete = async (id) => {
     try {
       const res = await deleteStudent(id);
-      const data =await res.json();
-      
+      const data = await res.json();
+
       if (res.status === 200) {
         const updatedStudents = students.filter(
           (student) => student.student_id !== id

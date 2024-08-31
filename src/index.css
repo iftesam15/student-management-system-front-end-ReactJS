@@ -22,16 +22,18 @@
   border-collapse: collapse;
 }
 
-.table-container th, .table-container td {
+.table-container th,
+.table-container td {
   border: 1px solid #ddd;
   padding: 8px;
+  text-align: center;
 }
 
 .table-container th {
   padding-top: 12px;
   padding-bottom: 12px;
-  text-align: left;
-  background-color: #4CAF50;
+
+  background-color: #4caf50;
   color: white;
 }
 

@@ -47,6 +47,10 @@ import PrivateRoute from "./utils/PrivateRoute";
 import StudentList from "./components/StudentList";
 import About from "./components/About";
 import EditStudent from "./pages/EditStudent";
+import StudentForm from "./components/StudentForm";
+import Enrollment from "./pages/Enrollment";
+import Instuctors from "./pages/Instructors";
+import Courses from "./pages/Courses";
 const App = () => {
   return (
     <div>
@@ -60,8 +64,15 @@ const App = () => {
                 path="/students/edit/:id"
                 element={<EditStudent></EditStudent>}
               />
+              <Route
+                path="/students/new"
+                element={<StudentForm></StudentForm>}
+              />
+              <Route path="/enrollments" element={<Enrollment></Enrollment>} />
+              <Route path="/instructors" element={<Instuctors></Instuctors>} />
 
               <Route path="/about" element={<About></About>} />
+              <Route path="/courses" element={<Courses></Courses>} />
             </Route>
             <Route path="/login" element={<Login />} />
           </Routes>

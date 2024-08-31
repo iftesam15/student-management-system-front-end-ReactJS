@@ -16,8 +16,8 @@ const StudentForm = () => {
       fetch(`http://localhost:3000/students/${id}`)
         .then((response) => response.json())
         .then((data) => setStudent(data.data))
+
         .catch((error) => console.error("Error:", error));
-        console.log(student);
     }
   }, [id]);
 
