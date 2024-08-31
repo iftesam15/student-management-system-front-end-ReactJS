@@ -46,6 +46,7 @@ import Layout from "./components/Layout";
 import PrivateRoute from "./utils/PrivateRoute";
 import StudentList from "./components/StudentList";
 import About from "./components/About";
+import EditStudent from "./pages/EditStudent";
 const App = () => {
   return (
     <div>
@@ -55,6 +56,11 @@ const App = () => {
             <Route element={<PrivateRoute />}>
               <Route path="/" element={<Dashboard />} />
               <Route path="/students" element={<StudentList></StudentList>} />
+              <Route
+                path="/students/edit/:id"
+                element={<EditStudent></EditStudent>}
+              />
+
               <Route path="/about" element={<About></About>} />
             </Route>
             <Route path="/login" element={<Login />} />
