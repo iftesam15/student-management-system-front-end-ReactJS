@@ -48,10 +48,17 @@ export default function NewEnrollment() {
             `${BASE_URL}instructors/${selectedCourseId}`
           );
           const data = await response.json();
-          setInstructors(data.data);
-          console.log("instructors", instructors);
+          if (Array.isArray(data.data)) {
+            setInstructors(data.data); // Set instructors if it's an array
+          } else if (data.data) {
+            setInstructors([data.data]); // If it's a single object, wrap it in an array
+          } else {
+            setInstructors([]); // Fallback to an empty array if no data
+          }
+          console.log("instructors", data.data);
         } catch (err) {
           console.log("Error fetching instructors by course:", err);
+          setInstructors([]); // Ensure instructors is always an array
         }
       };
 
@@ -84,8 +91,8 @@ export default function NewEnrollment() {
       const response = await axios.post(`${BASE_URL}enrollments`, {
         course_id: selectedCourseId,
         student_id: selectedStudentId,
-        instructor_id: selectedInstructorId,
         enrollment_date: enrollmentDate,
+        instructor_id: selectedInstructorId,
       });
       console.log("Enrollment created:", response.data);
       navigate("/enrollments"); // Navigate to enrollment list or another page after success
@@ -95,7 +102,7 @@ export default function NewEnrollment() {
   };
 
   return (
-    <div className="container">
+    <div className="">
       <h2>New Enrollment</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
