@@ -45,7 +45,7 @@ export default function NewEnrollment() {
       const fetchInstructorsByCourse = async () => {
         try {
           const response = await fetch(
-            `${BASE_URL}instructors/${selectedCourseId}`
+            `${BASE_URL}courses/instructors/${selectedCourseId}`
           );
           const data = await response.json();
           if (Array.isArray(data.data)) {
@@ -136,9 +136,9 @@ export default function NewEnrollment() {
             disabled={!selectedCourseId} // Disable dropdown if no course is selected
           >
             <option value="">Select an instructor</option>
-            {instructors.map((instructor) => (
+            {instructors.map((instructor, index) => (
               <option
-                key={instructor.instructor_id}
+                key={`${instructor.instructor_id}-${index}`}
                 value={instructor.instructor_id}
               >
                 {instructor.first_name} {instructor.last_name}
