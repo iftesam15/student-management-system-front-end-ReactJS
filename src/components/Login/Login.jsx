@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../store/auth";
-
+import { Link } from "react-router-dom";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -56,6 +56,9 @@ const Login = () => {
             <button type="submit">Login</button>
           </form>
           {error && <p className="error">{error}</p>}
+          <p className="text-center">
+            <Link to="/forget-password">Forgot your password?</Link>
+          </p>
         </div>
       </div>
     </>

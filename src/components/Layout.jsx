@@ -4,11 +4,15 @@ import Header from "./Header";
 
 const Layout = ({ children }) => {
   const location = useLocation();
-  const isLogin = location.pathname === "/login";
+  const isLoginOrForgetPassword =
+    location.pathname === "/login" ||
+    location.pathname === "/forget-password" ||
+    location.pathname.startsWith("/reset-password");
 
   return (
     <div className="container">
-      {isLogin ? null : <Header />} {/* Conditionally render Navbar */}
+      {isLoginOrForgetPassword ? null : <Header />}{" "}
+      {/* Conditionally render Header */}
       <main>{children}</main>
     </div>
   );
