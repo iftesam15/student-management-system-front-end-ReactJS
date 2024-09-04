@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { fetchStudents, deleteStudent } from "../service/studentService";
 import { Snackbar, Alert } from "@mui/material";
-
+import api from "../api";
 const StudentList = () => {
   const [students, setStudents] = useState([]);
   const [snackbar, setSnackbar] = useState({
@@ -15,9 +15,9 @@ const StudentList = () => {
   useEffect(() => {
     const getStudents = async () => {
       try {
-        const res = await fetchStudents();
-        // console.log(res);
-        setStudents(res.data);
+        const res = await api.get("/students");
+        console.log("studentlist is", res.data.data);
+        setStudents(res.data.data);
         // setSnackbar({
         //   open: true,
         //   message: "Students fetched successfully",
