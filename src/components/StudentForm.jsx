@@ -53,7 +53,7 @@ const StudentForm = () => {
 
     const url = id
       ? `/students/${id}` // Since `baseURL` is already set in the axios instance
-      : `/student`;
+      : `/students`;
     const method = id ? "put" : "post"; // Axios uses lowercase method names
 
     try {
@@ -71,7 +71,7 @@ const StudentForm = () => {
   return (
     <div>
       <h1>{id ? "Edit" : "Add"} Student</h1>
-      <p>{error}</p>
+
       <form onSubmit={handleSubmit}>
         <div>
           <label>First Name</label>

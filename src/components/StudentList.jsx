@@ -1,10 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { fetchStudents, deleteStudent } from "../service/studentService";
+import { useNavigate } from "react-router-dom";
 import { Snackbar, Alert } from "@mui/material";
-import { getAll } from "../API Service/services";
-import api from "../api";
+import { getAll, remove } from "../API Service/services";
+import { format } from "date-fns";
+import DynamicTable from "./DynamicTable/DynamicTable";
+import { Link } from "react-router-dom";
 const StudentList = () => {
+  const columns = [
+    { header: "Name", accessor: "name" },
+    { header: "Email", accessor: "email" },
+    { header: "Date of Birth", accessor: "date_of_birth" },
+  ];
+
   const [students, setStudents] = useState([]);
   const [snackbar, setSnackbar] = useState({
     open: false,
@@ -13,18 +20,23 @@ const StudentList = () => {
     autoHideDuration: 6000,
   });
 
+  const navigate = useNavigate(); // Initialize useNavigate
+
   useEffect(() => {
     const getStudents = async () => {
       try {
         const res = await getAll("/students"); // Use dynamic getAll function
-        console.log("studentlist is", res);
-        setStudents(res.data);
-        // setSnackbar({
-        //   open: true,
-        //   message: "Students fetched successfully",
-        //   severity: "success",
-        //   autoHideDuration: 2000,
-        // });
+        const formattedStudents = res.data.map((student) => ({
+          student_id: student.student_id,
+          name:
+            student.first_name || student.last_name
+              ? `${student.first_name} ${student.last_name}`
+              : "--", // Combine first and last name
+          date_of_birth: format(new Date(student.date_of_birth), "MM/dd/yyyy"),
+          email: student.email ? student.email : "--",
+        }));
+
+        setStudents(formattedStudents);
       } catch (error) {
         setSnackbar({
           open: true,
@@ -39,14 +51,21 @@ const StudentList = () => {
     getStudents();
   }, []);
 
-  const handleDelete = async (id) => {
-    try {
-      const res = await deleteStudent(id);
-      const data = await res.json();
+  const handleEdit = (student) => {
+    // Navigate to edit page with student ID
+    navigate(`/students/edit/${student.student_id}`);
+  };
 
-      if (res.status === 200) {
+  const handleDelete = async (student) => {
+    try {
+      const res = await remove("/students", student.student_id);
+      console.log(res.status);
+
+      const data = res;
+
+      if (res.status === "success") {
         const updatedStudents = students.filter(
-          (student) => student.student_id !== id
+          (s) => s.student_id !== student.student_id
         );
         setStudents(updatedStudents);
         setSnackbar({
@@ -55,10 +74,10 @@ const StudentList = () => {
           severity: "success",
           autoHideDuration: 3000,
         });
-      } else if (res.status === 404) {
+      } else if (res.status === "fail") {
         setSnackbar({
           open: true,
-          message: "Student not found",
+          message: data.message,
           severity: "warning",
           autoHideDuration: 3000,
         });
@@ -85,20 +104,17 @@ const StudentList = () => {
   };
 
   return (
-    <div>
+    <div className="">
       <h1>Students</h1>
       <Link to="/students/new">Add Student</Link>
-      <ul>
-        {students.map((student) => (
-          <li key={student.student_id}>
-            {student.first_name} {student.last_name}
-            <Link to={`/students/edit/${student.student_id}`}>Edit</Link>
-            <button onClick={() => handleDelete(student.student_id)}>
-              Delete
-            </button>
-          </li>
-        ))}
-      </ul>
+
+      <DynamicTable
+        columns={columns}
+        data={students}
+        onEdit={handleEdit}
+        onDelete={handleDelete}
+        showActions={true}
+      />
       <Snackbar
         open={snackbar.open}
         autoHideDuration={snackbar.autoHideDuration}

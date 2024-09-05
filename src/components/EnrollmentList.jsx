@@ -54,7 +54,7 @@ const EnrollmentList = () => {
         </tbody>
       </table> */}
       <Link to="/enrollments/new">New Enrollment</Link>
-      <DynamicTable columns={columns} data={enrollments} />
+      <DynamicTable columns={columns} data={enrollments} showActions={false} />
     </div>
   );
 };

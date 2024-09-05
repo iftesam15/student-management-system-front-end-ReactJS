@@ -6,9 +6,6 @@
 .login-container h2 {
   text-align: center;
 }
-.container {
-  height: 100vh;
-}
 
 .student-form {
   min-width: 500px;
