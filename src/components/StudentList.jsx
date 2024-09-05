@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { fetchStudents, deleteStudent } from "../service/studentService";
 import { Snackbar, Alert } from "@mui/material";
+import { getAll } from "../API Service/services";
 import api from "../api";
 const StudentList = () => {
   const [students, setStudents] = useState([]);
@@ -15,9 +16,9 @@ const StudentList = () => {
   useEffect(() => {
     const getStudents = async () => {
       try {
-        const res = await api.get("/students");
-        console.log("studentlist is", res.data.data);
-        setStudents(res.data.data);
+        const res = await getAll("/students"); // Use dynamic getAll function
+        console.log("studentlist is", res);
+        setStudents(res.data);
         // setSnackbar({
         //   open: true,
         //   message: "Students fetched successfully",

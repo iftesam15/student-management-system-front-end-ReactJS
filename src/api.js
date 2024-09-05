@@ -23,7 +23,7 @@ api.interceptors.request.use(
 
 // Response interceptor to handle errors
 api.interceptors.response.use(
-    (response) => response,
+    (response) => response.data,
     (error) => {
         // Handle errors (e.g., redirect to login if unauthorized)
         if (error.response && error.response.status === 401) {

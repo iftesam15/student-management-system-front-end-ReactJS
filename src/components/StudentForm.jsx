@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-
+import axios from "axios";
+import api from "../api";
+import { environment } from "../environments/environment";
 const StudentForm = () => {
   const [student, setStudent] = useState({
     first_name: "",
@@ -12,13 +14,25 @@ const StudentForm = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    if (id) {
-      fetch(`http://localhost:3000/students/${id}`)
-        .then((response) => response.json())
-        .then((data) => setStudent(data.data))
+    const editStudent = async (id) => {
+      if (!id) {
+        setError("Error: No student ID provided.");
+        return;
+      }
+      try {
+        const response = await api.get(
+          `${environment.APP_BASE_URL}/students/${id}`,
+          student
+        );
+        setStudent(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.error("Error:", error);
+        setError("Error: Failed to update student.");
+      }
+    };
 
-        .catch((error) => console.error("Error:", error));
-    }
+    editStudent(id);
   }, [id]);
 
   const handleChange = (e) => {
@@ -26,7 +40,7 @@ const StudentForm = () => {
     setStudent((prevState) => ({ ...prevState, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Email validation regex
@@ -38,22 +52,20 @@ const StudentForm = () => {
     }
 
     const url = id
-      ? `http://localhost:3000/students/${id}`
-      : "http://localhost:3000/students";
-    const method = id ? "PUT" : "POST";
+      ? `/students/${id}` // Since `baseURL` is already set in the axios instance
+      : `/student`;
+    const method = id ? "put" : "post"; // Axios uses lowercase method names
 
-    fetch(url, {
-      method: method,
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(student),
-    })
-      .then((response) => response.json())
-      .then(() => {
-        navigate("/students");
-      })
-      .catch((error) => console.error("Error:", error));
+    try {
+      await api({
+        method: method,
+        url: url,
+        data: student,
+      });
+      navigate("/students");
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
   return (
