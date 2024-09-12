@@ -29,8 +29,8 @@ const StudentList = () => {
         const formattedStudents = res.data.map((student) => ({
           student_id: student.student_id,
           name:
-            student.first_name || student.last_name
-              ? `${student.first_name} ${student.last_name}`
+            student.firstName || student.lastName
+              ? `${student.firstName} ${student.lastName}`
               : "--", // Combine first and last name
           date_of_birth: format(new Date(student.date_of_birth), "MM/dd/yyyy"),
           email: student.email ? student.email : "--",
