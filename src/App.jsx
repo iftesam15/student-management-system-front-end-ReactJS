@@ -15,6 +15,8 @@ import Logout from "./pages/Logout";
 import NewEnrollment from "./components/NewEnrollment";
 import ForgetPassword from "./pages/ForgetPassword";
 import ResetPassword from "./pages/ResetPassword";
+import HeadDepartmentList from "./components/HeadDepartmentList";
+import EditHeadDepartments from "./pages/EditHeadDepartments";
 const App = () => {
   return (
     <div>
@@ -41,6 +43,18 @@ const App = () => {
 
               <Route path="/about" element={<About></About>} />
               <Route path="/courses" element={<Courses></Courses>} />
+              <Route
+                path="/head_department"
+                element={<HeadDepartmentList></HeadDepartmentList>}
+              />
+              <Route
+                path="/head_department/new"
+                element={<EditHeadDepartments></EditHeadDepartments>}
+              ></Route>
+              <Route
+                path="/head_department/:id"
+                element={<EditHeadDepartments></EditHeadDepartments>}
+              ></Route>
             </Route>
             <Route path="/login" element={<Login />} />
             <Route path="/logout" element={<Logout />} />

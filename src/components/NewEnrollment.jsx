@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { environment } from "../environments/environment";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
+import api from "../api";
 
 export default function NewEnrollment() {
   const BASE_URL = environment.BASE_URL;
@@ -28,9 +29,11 @@ export default function NewEnrollment() {
 
     const fetchStudents = async () => {
       try {
-        const response = await fetch(`${BASE_URL}students`);
-        const data = await response.json();
-        setStudents(data.data);
+        const response = await api.get(`${BASE_URL}students`);
+        const data = await response.data;
+        console.log("🚀 ~ fetchStudents ~ data:", data);
+
+        setStudents(data);
       } catch (err) {
         console.log("Error fetching students:", err);
       }
@@ -136,9 +139,9 @@ export default function NewEnrollment() {
             disabled={!selectedCourseId} // Disable dropdown if no course is selected
           >
             <option value="">Select an instructor</option>
-            {instructors.map((instructor, index) => (
+            {instructors.map((instructor) => (
               <option
-                key={`${instructor.instructor_id}-${index}`}
+                key={instructor.instructor_id}
                 value={instructor.instructor_id}
               >
                 {instructor.first_name} {instructor.last_name}
@@ -160,7 +163,7 @@ export default function NewEnrollment() {
             <option value="">Select a student</option>
             {students.map((student) => (
               <option key={student.student_id} value={student.student_id}>
-                {student.first_name} {student.last_name}
+                {student.firstName} {student.lastName}
               </option>
             ))}
           </select>

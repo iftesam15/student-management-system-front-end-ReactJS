@@ -30,6 +30,9 @@ const Header = () => (
           <Link to="/courses">Courses</Link>
         </li>
         <li>
+          <Link to="/head_department">Head Departments</Link>
+        </li>
+        <li>
           <Link to="/about">About</Link>
         </li>
         <li>
