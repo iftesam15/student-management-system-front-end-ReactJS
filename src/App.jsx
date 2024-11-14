@@ -18,6 +18,7 @@ import ResetPassword from "./pages/ResetPassword";
 import HeadDepartmentList from "./components/HeadDepartmentList";
 import EditHeadDepartments from "./pages/EditHeadDepartments";
 import Not_Found from "./components/Not_Found";
+import { Navigate } from "react-router-dom";
 
 const App = () => {
   return (
@@ -34,7 +35,8 @@ const App = () => {
           <Route element={<Layout />}>
             {" "}
             {/* Layout only wraps protected routes */}
-            <Route path="/" element={<Dashboard />} />
+            <Route index element={<Navigate to="/home" />} />
+            <Route path="/home" element={<Dashboard />} />
             <Route path="/students" element={<StudentList />} />
             <Route path="/students/edit/:id" element={<EditStudent />} />
             <Route path="/students/new" element={<StudentForm />} />
