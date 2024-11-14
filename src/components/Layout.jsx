@@ -1,19 +1,13 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
 import Header from "./Header";
+import { Outlet } from "react-router-dom";
 
 const Layout = ({ children }) => {
-  const location = useLocation();
-  const isLoginOrForgetPassword =
-    location.pathname === "/login" ||
-    location.pathname === "/forget-password" ||
-    location.pathname.startsWith("/reset-password");
-
   return (
     <div className="container">
-      {isLoginOrForgetPassword ? null : <Header />}{" "}
-      {/* Conditionally render Header */}
-      <main>{children}</main>
+      <Header />{" "}
+      {/* Always render Header, since Layout is only used for protected routes */}
+      <Outlet />
     </div>
   );
 };
