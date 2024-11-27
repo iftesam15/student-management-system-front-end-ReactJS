@@ -12,6 +12,7 @@ export const studentReducer = (state = initialState, action) => {
   switch (action.type) {
     case "SET_STUDENT":
       console.log(state);
+
       return {
         ...state,
         student: action.payload,
