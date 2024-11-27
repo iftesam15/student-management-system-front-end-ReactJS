@@ -1,76 +1,78 @@
-import React, { useState, useEffect } from "react";
+import React, { useReducer, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import api from "../api";
 import { environment } from "../environments/environment";
+import studentReducer, {
+  setStudent,
+  updateStudentField,
+  setError,
+  clearError,
+  initialState,
+} from "./studentReducer";
+
 const StudentForm = () => {
-  const [student, setStudent] = useState({
-    first_name: "",
-    last_name: "",
-    email: "",
-  });
-  const [error, setError] = useState("");
+  const [state, dispatch] = useReducer(studentReducer, initialState);
   const navigate = useNavigate();
   const { id } = useParams();
 
   useEffect(() => {
-    const editStudent = async (id) => {
+    const fetchStudent = async () => {
       if (!id) {
-        setError("Error: No student ID provided.");
+        dispatch(setError("Error: No student ID provided."));
         return;
       }
       try {
         const response = await api.get(
-          `${environment.APP_BASE_URL}/students/${id}`,
-          student
+          `${environment.APP_BASE_URL}/students/${id}`
         );
-        setStudent(response.data);
-        console.log(response.data);
+        dispatch(setStudent(response.data));
       } catch (error) {
         console.error("Error:", error);
-        setError("Error: Failed to update student.");
+        dispatch(setError("Error: Failed to fetch student data."));
       }
     };
 
-    editStudent(id);
+    if (id) {
+      fetchStudent();
+    }
   }, [id]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setStudent((prevState) => ({ ...prevState, [name]: value }));
+    dispatch(updateStudentField(name, value));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Email validation regex
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if (!student.email || !emailPattern.test(student.email)) {
-      setError("Please enter a valid email address.");
+    if (!state.student.email || !emailPattern.test(state.student.email)) {
+      dispatch(setError("Please enter a valid email address."));
       return;
     }
 
-    const url = id
-      ? `/students/${id}` // Since `baseURL` is already set in the axios instance
-      : `/students`;
-    const method = id ? "put" : "post"; // Axios uses lowercase method names
+    const url = id ? `/students/${id}` : `/students`;
+    const method = id ? "put" : "post";
 
     try {
       await api({
         method: method,
         url: url,
-        data: student,
+        data: state.student,
       });
       navigate("/students");
     } catch (error) {
       console.error("Error:", error);
+      dispatch(setError("Error: Failed to save student."));
     }
   };
 
   return (
     <div>
       <h1>{id ? "Edit" : "Add"} Student</h1>
+      {state.error && <p style={{ color: "red" }}>{state.error}</p>}
 
       <form onSubmit={handleSubmit}>
         <div>
@@ -78,7 +80,7 @@ const StudentForm = () => {
           <input
             type="text"
             name="first_name"
-            value={student.first_name}
+            value={state.student.first_name}
             onChange={handleChange}
             required
           />
@@ -88,7 +90,7 @@ const StudentForm = () => {
           <input
             type="text"
             name="last_name"
-            value={student.last_name}
+            value={state.student.last_name}
             onChange={handleChange}
             required
           />
@@ -98,7 +100,7 @@ const StudentForm = () => {
           <input
             type="email"
             name="email"
-            value={student.email}
+            value={state.student.email}
             onChange={handleChange}
             required
           />
