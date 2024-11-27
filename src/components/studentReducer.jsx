@@ -3,6 +3,7 @@ export const initialState = {
     first_name: "",
     last_name: "",
     email: "",
+    date_of_birth: "",
   },
   error: "",
 };
@@ -10,6 +11,7 @@ export const initialState = {
 export const studentReducer = (state = initialState, action) => {
   switch (action.type) {
     case "SET_STUDENT":
+      console.log(state);
       return {
         ...state,
         student: action.payload,

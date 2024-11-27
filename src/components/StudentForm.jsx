@@ -26,7 +26,15 @@ const StudentForm = () => {
         const response = await api.get(
           `${environment.APP_BASE_URL}/students/${id}`
         );
-        dispatch(setStudent(response.data));
+        const studentData = response.data;
+
+        // Convert date_of_birth to YYYY-MM-DD format
+        if (studentData.date_of_birth) {
+          studentData.date_of_birth = new Date(studentData.date_of_birth)
+            .toISOString()
+            .split("T")[0]; // Extract YYYY-MM-DD
+        }
+        dispatch(setStudent(studentData));
       } catch (error) {
         console.error("Error:", error);
         dispatch(setError("Error: Failed to fetch student data."));
@@ -101,6 +109,16 @@ const StudentForm = () => {
             type="email"
             name="email"
             value={state.student.email}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="date_of_birth">Date of Birth</label>
+          <input
+            type="date"
+            name="date_of_birth"
+            value={state.student.date_of_birth}
             onChange={handleChange}
             required
           />
