@@ -24,17 +24,13 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        {/* Unprotected Routes */}
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<Logout />} />
         <Route path="/forget-password" element={<ForgetPassword />} />
         <Route path="/reset-password/:token" element={<ResetPassword />} />
-        <Route path="*" element={<Not_Found />} /> {/* Catch-all route */}
-        {/* Protected Routes with Layout */}
+        <Route path="*" element={<Not_Found />} />
         <Route element={<PrivateRoute />}>
           <Route element={<Layout />}>
-            {" "}
-            {/* Layout only wraps protected routes */}
             <Route index element={<Navigate to="/home" />} />
             <Route path="/home" element={<Dashboard />} />
             <Route path="/students" element={<StudentList />} />
